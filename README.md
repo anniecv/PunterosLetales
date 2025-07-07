@@ -1,10 +1,6 @@
 # PunterosLetales - Students
-ana siiiiiii yupi
-
-elcasanomos
-
-weimar29
-holAa
-
+ana 
+joel
+weimar
 jorge esteves
 Fernando Navia Nova
