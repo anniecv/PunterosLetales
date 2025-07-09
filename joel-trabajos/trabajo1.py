@@ -1,1 +1,3 @@
-print ("hola mundo en python")
+def saludar(saludo):
+    print("hola " + saludo + " bienvenido a tu primer trabajo")
+
