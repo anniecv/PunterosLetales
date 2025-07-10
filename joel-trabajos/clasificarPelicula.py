@@ -30,5 +30,6 @@ while True:
         print("Gracias por usar el programa.")
         break
 
-print("fin del programa, gracias por usarlo.")
+print("--- Fin del programa --- Joel Trabajos ---")
+
 # Fin del código

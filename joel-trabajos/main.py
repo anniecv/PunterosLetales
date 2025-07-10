@@ -16,4 +16,6 @@ def main():
     # Tabla de multiplicar
     numero = int(input("Ingresa un número para ver su tabla de multiplicar: "))
     tablaMultiplicar(numero)
+    print("--- Fin del programa --- Joel Trabajos ---")
+
 main()
