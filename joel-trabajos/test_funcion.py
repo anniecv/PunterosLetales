@@ -10,6 +10,8 @@ assert clasificacionPelicula(-5) == "Edad no válida", "Error para edad -5"
 assert sumar(5, 3) == 8, "Error en la suma de 5 y 3"
 assert sumar(-1, 1) == 0, "Error en la suma de -1 y 1"
 assert sumar(0, 0) == 0, "Error en la suma de 0 y 0"
+assert sumar(100, 200) == 300, "Error en la suma de 100 y 200"
 
 print("Todas las pruebas pasaron exitosamente.")
 
+print("--- Fin del programa --- Joel Trabajos ---")
