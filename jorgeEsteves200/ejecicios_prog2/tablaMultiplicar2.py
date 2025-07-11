@@ -23,4 +23,4 @@ tabla = tabla_multiplicar(num_tabla)
 for i, resultado in enumerate(tabla, start=1):
     print(f"{num_tabla} x {i} = {resultado}")
 
-print("--- Fin del programa --- Jim Requena")
+print("--- Fin del programa ---esteves")
