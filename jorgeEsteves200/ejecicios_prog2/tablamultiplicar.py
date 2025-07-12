@@ -4,4 +4,4 @@ for i in range(1, 11):
   resultado = num_tabla * i
   print(f"{num_tabla} x {i} = {resultado}")
 
-print ("--- Fin del programa tablaMultiplicar --- Jim Requena")
+print ("--- Fin del programa tablaMultiplicar --esteves")

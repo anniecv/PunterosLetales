@@ -39,4 +39,4 @@ while True:
     if continuar != 'y':
         break
 
-print("--- Fin del programa --- Jim Requena")
+print("--- Fin del programa --jorge esteves")
