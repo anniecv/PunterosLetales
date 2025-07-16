@@ -29,4 +29,4 @@ while True:
             resultado = eval(instruccion,{"lista_Secreta": lista_Secreta})
             print(f"Resultado de tu instrucción: {resultado}")
         except Exception as e:
-            print(f"Error en tu instrucción: {e}"
+            print(f"Error en tu instrucción: {e}")
