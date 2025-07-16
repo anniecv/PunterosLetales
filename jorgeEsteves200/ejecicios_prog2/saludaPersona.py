@@ -7,9 +7,9 @@ def saludar(nombre_persona):
     print(mensaje)
 
 # ===== Uso directo de la función =====
-saludar("Jimmy")
+saludar("jorge esteves")
 
 # ===== Nota sobre assert =====
 # Como la función no devuelve valor, no es posible hacer pruebas con assert directamente.
 # Pero podríamos modificarla para pruebas (ya lo veremos más adelante).
-print("--- Fin del programa --- Jim Requena")
+print("--- Fin del programa --- jorge ")
