@@ -7,22 +7,36 @@
 
 
 #como podemos usar y refactorizar essta funcion 
-""""""
-def calcular_area_rectangulo(base,altura):#calculo de area de un triangulo  de 2 3 lados diferentes imprimiendo  ressultados de formasimilar 
-    return base * altura
-def mostrar_area_rectangulo(numero,base,altura):
-    """muestra el area de un rectangulo con formato"""
-    area =calcular_area_rectangulo(base,altura)
-    print("el area del rectangulomes es ")
 
-    def main():
-        """funcion principal del programa"""
-        #ejemplo de uso 
-    mostrar_area_rectangulo(1,10,5)
 
-    #puedes probar con mas rectangulos
-    mostrar_area_rectangulo(5,6,8)
+lista_secreta = [1,2,3,4,5] #lista secreta
 
-    if __name__=="__main__":
-        main()
-        
+print ("bienvaenido al juego de ahorcado ")
+print ("debes descubrir que numeros hay en la lista secreta de 5 elementos ")
+print ("pero no puedes ver la directamente, en caso de turno puedes hacer una pregunta  en fomra de codido")
+print ("ejemplo: len(lista_secreta) o lista_secre")
+print ("cuando creas tener la lista completa escribe adivinar")
+print (".----------------------------------------------------------------------.")
+
+#buvle de interaccion
+
+while True:
+    instrucion= input("<<<<escribe tu instruccion o adivinar>>>>")
+    if instrucion.strip().lower()=="adivinar":
+        intento=input("escrive tu intento de la lista separada por comas  ")
+        try:
+            intento_lista =[int(x.strip()) for x in intento.split(",")]
+            if intento_lista == lista_secreta:
+                print("correcto has descubierto la lista secreta")
+                break
+            else:
+                print("esta no es la lista correcta sigue preguntando ")
+        except ValueError:
+            print("error asegurrate de escribir solo numeros separados por comas ")
+    else:
+        try:
+            #evalua la instruccion en el contexto de la lista secreta
+            resultado=eval(instrucion,{"lista secreta ":lista_secreta})
+            print("resultado:", resultado)
+        except Exception as e:
+            print("error de instruccion:",e)

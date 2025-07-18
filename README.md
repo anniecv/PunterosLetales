@@ -1,9 +1,9 @@
 # PunterosLetales - Students
 Ana Laura Cuellar
 
-joel
+Joel Dalton Montero 
 
-weimar
+Weimar Valda Estevez
 
 Jorge Esteves
 
