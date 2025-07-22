@@ -6,3 +6,4 @@ for i in mis_notas:
 promedio = sum_total / len(mis_notas)
 print(f"La suma total de todas las notas es de: {sum_total}")
 print(f"El promedio de las notas es de: {promedio}")
+print("-----------Fernando Navia Nova-----------")
