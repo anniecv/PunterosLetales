@@ -25,3 +25,5 @@ if __name__ == "__main__":
     assert invertir_lista([]) == []
 
     print("¡Pruebas con slicing pasaron! ✅")
+    print("-----------Fernando Navia Nova-----------")
+    

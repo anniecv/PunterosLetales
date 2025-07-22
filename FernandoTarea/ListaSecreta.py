@@ -29,7 +29,7 @@ while True:
                 print("❌ Lista incorrecta, sigue intentando.\n")
         except ValueError:
             print("⚠️ Entrada no válida. Asegúrate de usar solo números separados por comas.\n")
-
+        
     else:
         try:
             # Evaluamos la instrucción en un entorno controlado
@@ -37,5 +37,8 @@ while True:
             print(f"✅ Resultado: {resultado}\n")
         except Exception as e:
             print(f"⚠️ Error en la instrucción: {e}\n")
+print("-----------Fernando Navia Nova-----------")
+
+
 
   
