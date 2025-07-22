@@ -4,72 +4,94 @@ FILAS = 4
 COLUMNAS = 2
 BARCOS = 3
 
-# Crear un tablero vacío
-def crear_tablero():
-    return [[0 for _ in range(COLUMNAS)] for _ in range(FILAS)]
+VACIO = 0
+BARCO = 1
+TOCADO = 2
+AGUA = 3
 
-# Mostrar el tablero
+def crear_tablero():
+    return [[VACIO for _ in range(COLUMNAS)] for _ in range(FILAS)]
+
 def mostrar_tablero(tablero, ocultar_barcos=False):
     print("  " + " ".join(str(i + 1) for i in range(COLUMNAS)))
-    for i, fila in enumerate(tablero):
-        letra = chr(ord('A') + i)
+    for fila_idx, fila in enumerate(tablero):
+        letra = chr(ord('A') + fila_idx)
         fila_mostrar = []
         for celda in fila:
-            if ocultar_barcos and celda == 1:
+            if celda == VACIO:
                 fila_mostrar.append("0")
-            elif celda == 0:
-                fila_mostrar.append("0")
-            elif celda == 1:
-                fila_mostrar.append("1")
-            elif celda == 2:
+            elif celda == BARCO:
+                fila_mostrar.append("0" if ocultar_barcos else "1")
+            elif celda == TOCADO:
                 fila_mostrar.append("X")
-            elif celda == 3:
+            elif celda == AGUA:
                 fila_mostrar.append("*")
         print(letra + " " + " ".join(fila_mostrar))
 
-# Convertir coordenada tipo "A3" a índices [fila][columna]
 def coord_a_indices(coord):
+    if len(coord) < 2:
+        return None
     fila = ord(coord[0].upper()) - ord('A')
-    columna = int(coord[1:]) - 1
-    return fila, columna
+    try:
+        columna = int(coord[1:]) - 1
+    except ValueError:
+        return None
+    if 0 <= fila < FILAS and 0 <= columna < COLUMNAS:
+        return fila, columna
+    return None
 
-# Colocar barcos aleatoriamente
 def colocar_barcos(tablero, cantidad):
     colocados = 0
     while colocados < cantidad:
         fila = random.randint(0, FILAS - 1)
         columna = random.randint(0, COLUMNAS - 1)
-        if tablero[fila][columna] == 0:
-            tablero[fila][columna] = 1
+        if tablero[fila][columna] == VACIO:
+            tablero[fila][columna] = BARCO
             colocados += 1
 
-# Ejecutar disparo
 def disparar(tablero_objetivo, tablero_disparos, coord, nombre):
-    fila, columna = coord_a_indices(coord)
-    if tablero_objetivo[fila][columna] == 1:
-        tablero_objetivo[fila][columna] = 2
-        tablero_disparos[fila][columna] = 2
+    indices = coord_a_indices(coord)
+    if indices is None:
+        print("Coordenada inválida. Intenta de nuevo.")
+        return False  # disparo no válido
+
+    fila, columna = indices
+
+    if tablero_disparos[fila][columna] in (TOCADO, AGUA):
+        print("Ya se disparó allí. Intenta otra coordenada.")
+        return False
+
+    if tablero_objetivo[fila][columna] == BARCO:
+        tablero_objetivo[fila][columna] = TOCADO
+        tablero_disparos[fila][columna] = TOCADO
         print(f"{nombre} hizo ¡Tocado!")
-    elif tablero_objetivo[fila][columna] in [0]:
-        tablero_objetivo[fila][columna] = 3
-        tablero_disparos[fila][columna] = 3
-        print(f"{nombre} disparó al agua.")
     else:
-        print("Ya se disparó allí.")
+        tablero_objetivo[fila][columna] = AGUA  # Opcional, para marcar tablero real
+        tablero_disparos[fila][columna] = AGUA
+        print(f"{nombre} disparó al agua.")
+    return True
 
-# Comprobar si quedan barcos
 def quedan_barcos(tablero):
-    for fila in tablero:
-        if 1 in fila:
-            return True
-    return False
+    return any(BARCO in fila for fila in tablero)
 
-# Guardar puntuación
 def guardar_puntuacion(nombre):
     with open("puntuaciones.txt", "a") as archivo:
         archivo.write(f"{nombre} ganó la partida.\n")
 
-# Menú principal del juego
+def turno_cpu(tablero_objetivo, tablero_disparos, nombre):
+    intentos = 0
+    max_intentos = FILAS * COLUMNAS * 2  # para evitar loop infinito
+    while intentos < max_intentos:
+        fila = random.randint(0, FILAS - 1)
+        columna = random.randint(0, COLUMNAS - 1)
+        if tablero_disparos[fila][columna] not in (TOCADO, AGUA):
+            coord = f"{chr(ord('A') + fila)}{columna + 1}"
+            print(f"{nombre} dispara a {coord}")
+            disparar(tablero_objetivo, tablero_disparos, coord, nombre)
+            return
+        intentos += 1
+    print(f"{nombre} no encontró dónde disparar (tablero lleno).")
+
 def juego():
     print("=== Batalla Naval ===")
     print("1. Jugar contra la CPU")
@@ -91,23 +113,24 @@ def juego():
         turno = 1
         while quedan_barcos(tablero_jugador) and quedan_barcos(tablero_cpu):
             print(f"\n--- Turno {turno} ---")
-            print("Tu tablero:")
+
+            print("\nTu tablero:")
             mostrar_tablero(tablero_jugador)
-            print("Tus disparos:")
-            mostrar_tablero(disparos_jugador)
+            print("\nTus disparos:")
+            mostrar_tablero(disparos_jugador, ocultar_barcos=True)
 
-            coord = input("Dispara (ej. A3): ")
-            disparar(tablero_cpu, disparos_jugador, coord, nombre_jugador)
-
-            # Turno CPU
             while True:
-                fila_cpu = random.randint(0, FILAS - 1)
-                col_cpu = random.randint(0, COLUMNAS - 1)
-                if tablero_jugador[fila_cpu][col_cpu] in [0, 1]:
+                coord = input("Dispara (ej. A1): ")
+                if disparar(tablero_cpu, disparos_jugador, coord, nombre_jugador):
                     break
-            coord_cpu = f"{chr(ord('A') + fila_cpu)}{col_cpu + 1}"
-            print(f"{nombre_cpu} dispara a {coord_cpu}")
-            disparar(tablero_jugador, disparos_cpu, coord_cpu, nombre_cpu)
+
+            if not quedan_barcos(tablero_cpu):
+                break
+
+            turno_cpu(tablero_jugador, disparos_cpu, nombre_cpu)
+            if not quedan_barcos(tablero_jugador):
+                break
+
             turno += 1
 
         if quedan_barcos(tablero_jugador):
@@ -132,18 +155,26 @@ def juego():
         while quedan_barcos(tablero1) and quedan_barcos(tablero2):
             print(f"\n--- Turno {turno} ---")
 
-            print(f"{nombre1}, este es tu turno")
-            mostrar_tablero(disparos1)
-            coord = input("Dispara (ej. A3): ")
-            disparar(tablero2, disparos1, coord, nombre1)
+            print(f"\n{nombre1}, este es tu tablero:")
+            mostrar_tablero(tablero1)
+            print("\nTus disparos:")
+            mostrar_tablero(disparos1, ocultar_barcos=True)
+            while True:
+                coord = input(f"{nombre1}, dispara (ej. A1): ")
+                if disparar(tablero2, disparos1, coord, nombre1):
+                    break
 
             if not quedan_barcos(tablero2):
                 break
 
-            print(f"\n{nombre2}, este es tu turno")
-            mostrar_tablero(disparos2)
-            coord = input("Dispara (ej. A3): ")
-            disparar(tablero1, disparos2, coord, nombre2)
+            print(f"\n{nombre2}, este es tu tablero:")
+            mostrar_tablero(tablero2)
+            print("\nTus disparos:")
+            mostrar_tablero(disparos2, ocultar_barcos=True)
+            while True:
+                coord = input(f"{nombre2}, dispara (ej. A1): ")
+                if disparar(tablero1, disparos2, coord, nombre2):
+                    break
 
             turno += 1
 
@@ -156,6 +187,5 @@ def juego():
     else:
         print("Opción inválida. Reinicia el programa.")
 
-# Ejecutar juego
-juego()
-giut 
+if __name__ == "__main__":
+    juego()
