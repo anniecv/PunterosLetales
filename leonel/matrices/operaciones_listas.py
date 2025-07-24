@@ -1,97 +1,161 @@
 # clase05_operaciones_listas.py
 
-# Ejercicio 1: Sumar elementos de una lista
+# Ejercicio 1: Función para sumar elementos de una lista
 def sumar_elementos(lista_numeros):
     """
-    Recibe una lista de números y retorna la suma total.
+    Función que recibe una lista de números y retorna la suma total de los elementos.
+    Parámetro:
+        lista_numeros: Lista de números a sumar
+    Retorna:
+        La suma total de todos los elementos de la lista (puede ser un número negativo)
     """
+    # Implementa el algoritmo que diseñamos:
+    # Crea una variable acumulador_suma inicializada en 0
     acumulador_suma = 0
-    for elemento in lista_numeros:
-        acumulador_suma += elemento
+    # Usa un bucle for para recorrer lista_numeros
+    for elemento_actual in lista_numeros:
+        # En cada iteración, acumulador_suma += elemento_actual
+        acumulador_suma += elemento_actual
+    # Al final, return acumulador_suma
     return acumulador_suma
 
+# Casos de Prueba con assert
+print("Probando sumar_elementos...")
+assert sumar_elementos([1, 2, 3, 4, 5]) == 15
+assert sumar_elementos([10, -2, 5]) == 13
+assert sumar_elementos([]) == 0  # ¡Importante probar con una lista vacía!
+assert sumar_elementos([100]) == 100
+print("¡Pruebas para sumar_elementos pasaron! ✅")
 
-# Ejercicio 2: Encontrar el mayor elemento de una lista
+# Pruebas adicionales para verificar que funciona correctamente
+print("\n--- Pruebas adicionales ---")
+print(f"Suma de [1, 2, 3, 4, 5]: {sumar_elementos([1, 2, 3, 4, 5])}")
+print(f"Suma de [10, -2, 5]: {sumar_elementos([10, -2, 5])}")
+print(f"Suma de lista vacía []: {sumar_elementos([])}")
+print(f"Suma de [100]: {sumar_elementos([100])}")
+print(f"Suma de [-1, -2, -3]: {sumar_elementos([-1, -2, -3])}")
+print(f"Suma de [0, 0, 0, 0]: {sumar_elementos([0, 0, 0, 0])}")
+print("\nFIN DEL PROGRAMA SUMA DE ELEMENTOS\n")
+
+
+# Ejercicio 2: Función para encontrar el mayor elemento de una lista
 def encontrar_mayor(lista_numeros):
     """
-    Retorna el número más grande de la lista.
+    Recibe una lista de números y retorna el número más grande.
     Si la lista está vacía, retorna None.
     """
+    # Caso especial: lista vacía
     if not lista_numeros:
         return None
-    mayor = lista_numeros[0]
-    for elemento in lista_numeros[1:]:
-        if elemento > mayor:
-            mayor = elemento
-    return mayor
+
+    # Inicializar con el primer elemento
+    mayor_temporal = lista_numeros[0]
+
+    # Recorrer el resto de la lista
+    for elemento_actual in lista_numeros[1:]:
+        if elemento_actual > mayor_temporal:
+            mayor_temporal = elemento_actual
+
+    # Devolver el mayor encontrado
+    return mayor_temporal
+
+# Pruebas de la función con impresión de resultados
+print("\nProbando encontrar_mayor...\n")
+
+listas_de_prueba = [
+    [1, 9, 2, 8, 3, 7],
+    [-1, -9, -2, -8],
+    [42, 42, 42],
+    [],
+    [5]
+]
+
+# Ejecutar cada prueba y mostrar resultados
+for lista in listas_de_prueba:
+    resultado = encontrar_mayor(lista)
+    print(f"Lista: {lista} -> Mayor encontrado: {resultado}")
+
+# Verificar que los resultados son correctos con assert
+assert encontrar_mayor([1, 9, 2, 8, 3, 7]) == 9
+assert encontrar_mayor([-1, -9, -2, -8]) == -1
+assert encontrar_mayor([42, 42, 42]) == 42
+assert encontrar_mayor([]) is None
+assert encontrar_mayor([5]) == 5
+
+print("\n¡Pruebas para encontrar_mayor pasaron! ✅")
+print("\nFIN DEL PROGRAMA ENCUENTRA EL MAYOR ELEMENTO\n")
 
 
-# Ejercicio 3: Contar cuántas veces aparece un elemento en una lista
+# Ejercicio 3: Función para contar cuántas veces aparece un elemento en una lista.
 def contar_apariciones(lista, elemento_buscado):
     """
-    Cuenta las apariciones de elemento_buscado en lista.
+    Cuenta cuántas veces aparece un elemento en una lista.
+
+    Parámetros:
+        lista: La lista en la que se buscará.
+        elemento_buscado: El elemento que queremos contar.
+
+    Retorna:
+        El número de veces que el elemento aparece en la lista.
     """
+    # Inicialización del contador
     contador = 0
+
+    # Iteración y comparación
     for elemento in lista:
         if elemento == elemento_buscado:
             contador += 1
+
+    # Resultado final
     return contador
 
+# Pruebas del programa
+print("\nProbando contar_apariciones...\n")
 
-# Ejercicio 4: Invertir la posición de los elementos de una lista
+# Lista de ejemplo
+lista_ejemplo = [4, 2, 4, 3, 4, 5, 6, 2, 4, 7, 8, 4]
+
+# Elementos a buscar
+elementos_a_buscar = [4, 2, 9, 7]
+
+# Ejecutar pruebas e imprimir resultados
+for elemento in elementos_a_buscar:
+    resultado = contar_apariciones(lista_ejemplo, elemento)
+    print(f"Elemento '{elemento}' aparece {resultado} veces en la lista: {lista_ejemplo}")
+
+print("\nFIN DEL PROGRAMA QUE CUENTA LAS VECES QUE APARECE UN ELEMENTO\n")
+
+
+# Ejercicio 4: Función para invertir la posición de los elementos de una lista
 def invertir_lista(lista_original):
     """
-    Retorna una lista nueva con los elementos en orden inverso.
-    No modifica lista_original.
+    Recibe una lista y retorna una nueva lista con los elementos en orden inverso.
+    No modifica la lista original.
     """
     lista_invertida = []
+
+    # Recorrer la lista original de atrás hacia adelante
     for i in range(len(lista_original) - 1, -1, -1):
         lista_invertida.append(lista_original[i])
+
     return lista_invertida
 
+# Pruebas de la función
+print("\nProbando invertir_lista...\n")
 
-# BLOQUE DE PRUEBAS
-if __name__ == "__main__":
-    # Pruebas para sumar_elementos
-    print("Probando sumar_elementos...")
-    assert sumar_elementos([1, 2, 3, 4, 5]) == 15
-    assert sumar_elementos([10, -2, 5]) == 13
-    assert sumar_elementos([]) == 0
-    assert sumar_elementos([100]) == 100
-    print("¡Pruebas para sumar_elementos pasaron! ✅\n")
+# Lista de prueba
+lista_prueba = [1, 2, 3, 4, 5]
+lista_resultante = invertir_lista(lista_prueba)
 
-    # Pruebas para encontrar_mayor
-    print("Probando encontrar_mayor...")
-    listas_de_prueba = [[1, 9, 2, 8, 3, 7], [-1, -9, -2, -8], [42, 42, 42], [], [5]]
-    for lista in listas_de_prueba:
-        resultado = encontrar_mayor(lista)
-        print(f"Lista: {lista} -> Mayor encontrado: {resultado}")
+# Imprimir resultados
+print(f"Lista original: {lista_prueba}")
+print(f"Lista invertida: {lista_resultante}")
 
-    assert encontrar_mayor([1, 9, 2, 8, 3, 7]) == 9
-    assert encontrar_mayor([-1, -9, -2, -8]) == -1
-    assert encontrar_mayor([42, 42, 42]) == 42
-    assert encontrar_mayor([]) is None
-    assert encontrar_mayor([5]) == 5
-    print("¡Pruebas para encontrar_mayor pasaron! ✅\n")
+# Asserts para verificar comportamiento correcto
+assert lista_resultante == [5, 4, 3, 2, 1]
+assert lista_prueba == [1, 2, 3, 4, 5]  # La lista original no debe cambiar
+assert invertir_lista(["a", "b", "c"]) == ["c", "b", "a"]
+assert invertir_lista([]) == []
 
-    # Pruebas para contar_apariciones
-    print("Probando contar_apariciones...")
-    lista_ejemplo = [4, 2, 4, 3, 4, 5, 6, 2, 4, 7, 8, 4]
-    elementos_a_buscar = [4, 2, 9, 7]
-    for elemento in elementos_a_buscar:
-        resultado = contar_apariciones(lista_ejemplo, elemento)
-        print(f"Elemento '{elemento}' aparece {resultado} veces en la lista: {lista_ejemplo}")
-    print("FIN DEL PROGRAMA QUE CUENTA LAS VECES QUE APARECE UN ELEMENTO\n")
-
-    # Pruebas para invertir_lista
-    print("Probando invertir_lista...")
-    lista_prueba = [1, 2, 3, 4, 5]
-    lista_invertida = invertir_lista(lista_prueba)
-    print(f"Lista original: {lista_prueba}")
-    print(f"Lista invertida: {lista_invertida}")
-
-    assert lista_invertida == [5, 4, 3, 2, 1]
-    assert lista_prueba == [1, 2, 3, 4, 5]  # No se modificó la original
-    assert invertir_lista(["a", "b", "c"]) == ["c", "b", "a"]
-    assert invertir_lista([]) == []
-    print("¡Pruebas para invertir_lista pasaron! ✅\n")
+print("¡Pruebas para invertir_lista pasaron! ✅")
+print("\nFIN DEL PROGRAMA QUE INVIERTE LOS ELEMENTOS DE UNA LISTA")
