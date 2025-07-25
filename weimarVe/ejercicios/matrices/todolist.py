@@ -3,26 +3,26 @@
 # =========================
 
 # Paso 1: Variables Globales
-lista_de_tareas = []
+lista_de_tareas = []                                      
 proximo_id_tarea = 1  # Para generar IDs únicos
 
 # Paso 2: Implementar agregar_tarea
 def agregar_tarea(descripcion, prioridad='media'):
-    global proximo_id_tarea
-    nueva_tarea = {
+    global proximo_id_tarea                                      
+    nueva_tarea = {                                      
         "id": proximo_id_tarea,
         "descripcion": descripcion,
         "completada": False,
-        "prioridad": prioridad
+        "prioridad": prioridad                                      
     }
     lista_de_tareas.append(nueva_tarea)
-    proximo_id_tarea += 1
+    proximo_id_tarea += 1                                      
     print(f"Tarea '{descripcion}' añadida con éxito.")
 
 # Paso 3: Implementar mostrar_tareas
 def mostrar_tareas():
     print("\n--- LISTA DE TAREAS ---")
-    if not lista_de_tareas:
+    if not lista_de_tareas:                                      
         print("No hay tareas pendientes.")
         return
     for tarea in lista_de_tareas:
@@ -69,21 +69,21 @@ while True:
         prio = input("Prioridad (alta, media, baja): ")
         agregar_tarea(desc, prio)
     elif opcion == '2':
-        mostrar_tareas()
+        mostrar_tareas()  
     elif opcion == '3':
-        try:
+        try:  
             id_t = int(input("ID de la tarea a completar: "))
             marcar_tarea_completada(id_t)
-        except ValueError:
+        except ValueError:  
             print("Debes ingresar un número válido.")
     elif opcion == '4':
-        try:
+        try:  
             id_t = int(input("ID de la tarea a eliminar: "))
-            eliminar_tarea(id_t)
-        except ValueError:
+            eliminar_tarea(id_t)  
+        except ValueError:  
             print("Debes ingresar un número válido.")
     elif opcion == '0':
         print("¡Hasta pronto!")
         break
-    else:
+    else:  
         print("Opción no válida. Inténtalo de nuevo.")
