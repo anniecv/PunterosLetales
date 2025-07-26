@@ -1,7 +1,9 @@
+
+
 def merge_sort(lista):
   # Paso Vencer (Condición Base de la Recursividad):
   if len(lista) <= 1:
-      return lista                                      
+      return lista
 
   # Paso 1: DIVIDIR
   medio = len(lista) // 2
@@ -24,7 +26,7 @@ def merge(izquierda, derecha):
   while i < len(izquierda) and j < len(derecha):
       if izquierda[i] < derecha[j]:
           resultado.append(izquierda[i])
-          i += 1                                      
+          i += 1
       else:
           resultado.append(derecha[j])
           j += 1
@@ -54,4 +56,4 @@ assert merge_sort([100, -50, 0, 50, -100]) == [-100, -50, 0, 50, 100]  # Lista c
 assert merge_sort([2.5, 1.2, 3.8]) == [1.2, 2.5, 3.8]  # Lista con flotantes
 print("¡Todas las pruebas con assert pasaron correctamente!")
 
-print("Weimar Valda - FIN DEL PROGRAMA")
+print("JIM REQUENA - FIN DEL PROGRAMA")
